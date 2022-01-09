@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -33,10 +35,13 @@ import java.util.ArrayList;
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
-    ImageView imageView,imageView2;
     private ArrayList<ArrayList<Wallpaper>> wallpapers = new ArrayList<ArrayList<Wallpaper>>();
     private WallapaperAdapter wallapaperAdapter;
     private RecyclerView recyclerView;
+    private Boolean isScrolling = false;
+    private int currentItems,scrolledOutItems,totalItems;
+    private int pagecount = 1;
+    private String url="";
 
     RequestQueue requestQueue;
     @Override
@@ -50,28 +55,16 @@ public class FirstFragment extends Fragment {
         search.setQueryHint("Search here...");
 
         recyclerView = binding.getRoot().findViewById(R.id.wall_recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-//        imageView = binding.getRoot().findViewById(R.id.image);
-//        imageView2 = binding.getRoot().findViewById(R.id.image2);
         return binding.getRoot();
     }
 
-    private void parseJson() {
-        String url = "https://pixabay.com/api/?key=19481934-cd71ca9d79f0877fb408cd246&q=wallpaper&orientation=vertical";
+    private void parseJson(String url) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray array = response.getJSONArray("hits");
-                            JSONObject hit = array.getJSONObject(1);
-                            JSONObject hit2 = array.getJSONObject(2);
-                            String imgURL = hit.getString("webformatURL");
-                            String imgURL2 = hit2.getString("webformatURL");
-//                            Picasso.get().load(imgURL).into(imageView);
-//                            Picasso.get().load(imgURL2).into(imageView2);
                             //actual
                             for (int i=0; i<array.length()-1;i=i+2){
                                 JSONObject wallpaperObject1 = array.getJSONObject(i);
@@ -85,7 +78,6 @@ public class FirstFragment extends Fragment {
 
                                 wallpapers.add(wallpaperSet);
                             }
-                            Log.i("aunu", "onResponse: "+wallpapers);
                             wallapaperAdapter = new WallapaperAdapter(getActivity(),wallpapers);
                             recyclerView.setAdapter(wallapaperAdapter);
 
@@ -113,8 +105,38 @@ public class FirstFragment extends Fragment {
 //            }
 //        });
 
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(manager);
+
         requestQueue = Volley.newRequestQueue(getActivity());
-        parseJson();
+        url = "https://pixabay.com/api/?key=19481934-cd71ca9d79f0877fb408cd246&q=wallpaper&orientation=vertical";
+        parseJson(url);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    isScrolling = true;
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItems = manager.getChildCount();
+                scrolledOutItems = manager.findFirstVisibleItemPosition();
+                totalItems = manager.getItemCount();
+                if(isScrolling && (currentItems+scrolledOutItems == totalItems)){
+                    pagecount++;
+                    url = "https://pixabay.com/api/?key=19481934-cd71ca9d79f0877fb408cd246&q=wallpaper&orientation=vertical&page="+pagecount;
+                    parseJson(url);
+                    wallapaperAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
