@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -18,6 +19,16 @@ public class WallapaperAdapter extends RecyclerView.Adapter<WallapaperAdapter.Wa
 
     private Context context;
     private ArrayList<ArrayList<Wallpaper>> wallpapers;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener{
+        void onItemClick1(int position);
+        void onItemClick2(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public WallapaperAdapter(Context context, ArrayList<ArrayList<Wallpaper>> wallpapers){
         this.context = context;
@@ -53,6 +64,31 @@ public class WallapaperAdapter extends RecyclerView.Adapter<WallapaperAdapter.Wa
             super(itemView);
             imageView1 = itemView.findViewById(R.id.image);
             imageView2 = itemView.findViewById(R.id.image2);
+
+            imageView1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onItemClickListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            onItemClickListener.onItemClick1(position);
+                        }
+                    }
+                }
+            });
+
+            imageView2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onItemClickListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            onItemClickListener.onItemClick2(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
 }

@@ -1,18 +1,19 @@
 package com.example.apifun;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavGraph;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.apifun.databinding.FragmentFirstBinding;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,11 +49,9 @@ public class FirstFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         SearchView search = binding.getRoot().findViewById(R.id.search);
         search.setQueryHint("Search here...");
-
         recyclerView = binding.getRoot().findViewById(R.id.wall_recyclerView);
         return binding.getRoot();
     }
@@ -80,7 +78,17 @@ public class FirstFragment extends Fragment {
                             }
                             wallapaperAdapter = new WallapaperAdapter(getActivity(),wallpapers);
                             recyclerView.setAdapter(wallapaperAdapter);
+                            wallapaperAdapter.setOnItemClickListener(new WallapaperAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick1(int position) {
+                                    NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+                                }
 
+                                @Override
+                                public void onItemClick2(int position) {
+                                    NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+                                }
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -97,18 +105,9 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(FirstFragment.this)
-//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-//            }
-//        });
-
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
-
         requestQueue = Volley.newRequestQueue(getActivity());
         url = "https://pixabay.com/api/?key=19481934-cd71ca9d79f0877fb408cd246&q=wallpaper&orientation=vertical";
         parseJson(url);
@@ -138,11 +137,9 @@ public class FirstFragment extends Fragment {
             }
         });
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
 }
