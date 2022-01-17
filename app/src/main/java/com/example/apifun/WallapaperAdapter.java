@@ -1,14 +1,12 @@
 package com.example.apifun;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -47,8 +45,6 @@ public class WallapaperAdapter extends RecyclerView.Adapter<WallapaperAdapter.Wa
         ArrayList<Wallpaper> wallpaper = wallpapers.get(position);
         Wallpaper wallpaper1 = wallpaper.get(0);
         Wallpaper wallpaper2 = wallpaper.get(1);
-        Log.i("aunu", "onBindViewHolder: "+wallpaper1.getFullWallpaper_url());
-        Log.i("aunu", "onBindViewHolder: "+wallpaper2.getFullWallpaper_url());
         Picasso.get().load(wallpaper1.getFullWallpaper_url()).into(holder.imageView1);
         Picasso.get().load(wallpaper2.getFullWallpaper_url()).into(holder.imageView2);
     }
