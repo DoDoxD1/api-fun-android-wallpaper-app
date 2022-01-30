@@ -45,8 +45,8 @@ public class WallapaperAdapter extends RecyclerView.Adapter<WallapaperAdapter.Wa
         ArrayList<Wallpaper> wallpaper = wallpapers.get(position);
         Wallpaper wallpaper1 = wallpaper.get(0);
         Wallpaper wallpaper2 = wallpaper.get(1);
-        Picasso.get().load(wallpaper1.getFullWallpaper_url()).into(holder.imageView1);
-        Picasso.get().load(wallpaper2.getFullWallpaper_url()).into(holder.imageView2);
+        Picasso.get().load(wallpaper1.getSmallWallpaper_url()).into(holder.imageView1);
+        Picasso.get().load(wallpaper2.getSmallWallpaper_url()).into(holder.imageView2);
     }
 
     @Override

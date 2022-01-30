@@ -1,19 +1,16 @@
 package com.example.apifun;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavGraph;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,11 +49,26 @@ public class FirstFragment extends Fragment {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         SearchView search = binding.getRoot().findViewById(R.id.search);
         search.setQueryHint("Search here...");
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                query = query.replaceAll("\\s+", "+").toLowerCase();
+                String url = "https://pixabay.com/api/?key=19481934-cd71ca9d79f0877fb408cd246&q="+query;
+                wallpapers.clear();
+                parseJson(url);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         recyclerView = binding.getRoot().findViewById(R.id.wall_recyclerView);
         return binding.getRoot();
     }
 
-    private void parseJson(String url) {
+    private void  parseJson(String url) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -67,12 +79,19 @@ public class FirstFragment extends Fragment {
                             for (int i=0; i<array.length()-1;i=i+2){
                                 JSONObject wallpaperObject1 = array.getJSONObject(i);
                                 String wallpaperUrl1 = wallpaperObject1.getString("largeImageURL");
+                                String smallUrl1 = wallpaperObject1.getString("webformatURL");
+                                String userImgUrl1 = wallpaperObject1.getString("userImageURL");
+                                String user1 = wallpaperObject1.getString("user");
+                                int likes1 = wallpaperObject1.getInt("likes");
                                 JSONObject wallpaperObject2 = array.getJSONObject(i+1);
                                 String wallpaperUrl2 = wallpaperObject2.getString("largeImageURL");
-
+                                String smallUrl2 = wallpaperObject2.getString("webformatURL");
+                                String userImgUrl2 = wallpaperObject2.getString("userImageURL");
+                                String user2 = wallpaperObject2.getString("user");
+                                int likes2 = wallpaperObject2.getInt("likes");
                                 ArrayList<Wallpaper> wallpaperSet = new ArrayList<Wallpaper>();
-                                wallpaperSet.add(new Wallpaper(wallpaperUrl1));
-                                wallpaperSet.add(new Wallpaper(wallpaperUrl2));
+                                wallpaperSet.add(new Wallpaper(wallpaperUrl1,smallUrl1,userImgUrl1,user1,likes1));
+                                wallpaperSet.add(new Wallpaper(wallpaperUrl2,smallUrl2,userImgUrl2,user2,likes2));
 
                                 wallpapers.add(wallpaperSet);
                             }
@@ -81,12 +100,24 @@ public class FirstFragment extends Fragment {
                             wallapaperAdapter.setOnItemClickListener(new WallapaperAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick1(int position) {
-                                    NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+                                    Wallpaper wallpaper = wallpapers.get(position).get(0);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("likes",wallpaper.getLikes());
+                                    bundle.putString("url",wallpaper.getFullWallpaper_url());
+                                    bundle.putString("userurl",wallpaper.getUserImg_url());
+                                    bundle.putString("user",wallpaper.getUser());
+                                    NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
                                 }
 
                                 @Override
                                 public void onItemClick2(int position) {
-                                    NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+                                    Wallpaper wallpaper = wallpapers.get(position).get(1);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("likes",wallpaper.getLikes());
+                                    bundle.putString("url",wallpaper.getFullWallpaper_url());
+                                    bundle.putString("userurl",wallpaper.getUserImg_url());
+                                    bundle.putString("user",wallpaper.getUser());
+                                    NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
                                 }
                             });
                         } catch (JSONException e) {

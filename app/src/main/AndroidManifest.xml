@@ -3,6 +3,8 @@
     package="com.example.apifun">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apifun">
         <activity
-            android:name=".DetailsActivity"
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

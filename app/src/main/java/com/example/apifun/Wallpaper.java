@@ -27,6 +27,14 @@ public class Wallpaper {
         this.fullWallpaper_url = fullWallpaper_url;
     }
 
+    public Wallpaper(String fullWallpaper_url,String smallWallpaper_url,String userImg_url,String user, int likes) {
+        this.fullWallpaper_url = fullWallpaper_url;
+        this.smallWallpaper_url = smallWallpaper_url;
+        this.likes = likes;
+        this.userImg_url = userImg_url;
+        this.user = user;
+    }
+
     public Wallpaper(int id, int likes, int views, int downloads, int commentsNumber, String user) {
         this.id = id;
         this.likes = likes;
