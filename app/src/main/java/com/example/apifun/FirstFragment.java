@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
-
+import com.example.apifun.databinding.FragmentFirstBinding;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -21,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.apifun.databinding.FragmentFirstBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +40,7 @@ public class FirstFragment extends Fragment {
     private String url="";
 
     RequestQueue requestQueue;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "591731487067",
+    "project_id": "apifun-72714",
+    "storage_bucket": "apifun-72714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591731487067:android:61df46db34c8376cce2a7e",
+        "android_client_info": {
+          "package_name": "com.example.apifun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591731487067-628t1k1psss3b47fbpvr7a3t20lt1gbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.apifun",
+            "certificate_hash": "e038902625e14653a8689aba8aedccd0c71afb74"
+          }
+        },
+        {
+          "client_id": "591731487067-rn2hlvdckrt7ac4p1anor88tqou3g5el.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXTu8gAN8wXcW2bI80-0flLglCU9F-S5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591731487067-rn2hlvdckrt7ac4p1anor88tqou3g5el.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
