@@ -15,7 +15,9 @@
         android:theme="@style/Theme.Apifun">
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Apifun.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

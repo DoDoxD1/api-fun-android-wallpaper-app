@@ -1,11 +1,14 @@
 package com.example.apifun;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.apifun.databinding.FragmentFirstBinding;
 import androidx.annotation.NonNull;
@@ -38,6 +41,7 @@ public class FirstFragment extends Fragment {
     private int currentItems,scrolledOutItems,totalItems;
     private int pagecount = 1;
     private String url="";
+    private ImageView profileButton;
 
     RequestQueue requestQueue;
 
@@ -48,6 +52,14 @@ public class FirstFragment extends Fragment {
     ) {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         SearchView search = binding.getRoot().findViewById(R.id.search);
+        ImageView profileButton = binding.getRoot().findViewById(R.id.profile_button);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         search.setQueryHint("Search here...");
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -3,12 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android fun projects/api fun/app/src/main/res/drawable/account.xml" value="0.2425" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/drawable/gradient_backgorund.xml" value="0.27291666666666664" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/drawable/searchbar_gradient.xml" value="0.27291666666666664" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/drawable/wallpaper_backgorung.xml" value="0.14635416666666667" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/activity_details.xml" value="0.2033514492753623" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/activity_main.xml" value="0.152" />
-        <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/activity_profile.xml" value="0.25677083333333334" />
+        <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/activity_profile.xml" value="0.2" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/content_main.xml" value="0.25364583333333335" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/fragment_first.xml" value="0.2" />
         <entry key="..\:/android fun projects/api fun/app/src/main/res/layout/fragment_second.xml" value="0.2" />
