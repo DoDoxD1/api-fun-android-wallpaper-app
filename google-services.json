@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "591731487067",
+    "firebase_url": "https://apifun-72714-default-rtdb.firebaseio.com",
+    "project_id": "apifun-72714",
+    "storage_bucket": "apifun-72714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591731487067:android:c766df7b7d467573ce2a7e",
+        "android_client_info": {
+          "package_name": "com.example.apifun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591731487067-rn2hlvdckrt7ac4p1anor88tqou3g5el.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXTu8gAN8wXcW2bI80-0flLglCU9F-S5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591731487067-rn2hlvdckrt7ac4p1anor88tqou3g5el.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
